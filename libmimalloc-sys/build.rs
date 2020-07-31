@@ -116,27 +116,21 @@ fn main() {
             } else {
                 "mimalloc-static-debug"
             }
+        } else if cfg!(feature = "secure") {
+            "mimalloc-static-secure"
         } else {
-            if cfg!(feature = "secure") {
-                "mimalloc-static-secure"
-            } else {
-                "mimalloc-static"
-            }
+            "mimalloc-static"
         }
+    } else if is_debug {
+        if cfg!(feature = "secure") {
+            "mimalloc-secure-debug"
+        } else {
+            "mimalloc-debug"
+        }
+    } else if cfg!(feature = "secure") {
+        "mimalloc-secure"
     } else {
-        if is_debug {
-            if cfg!(feature = "secure") {
-                "mimalloc-secure-debug"
-            } else {
-                "mimalloc-debug"
-            }
-        } else {
-            if cfg!(feature = "secure") {
-                "mimalloc-secure"
-            } else {
-                "mimalloc"
-            }
-        }
+        "mimalloc"
     };
 
     // Build mimalloc-static
